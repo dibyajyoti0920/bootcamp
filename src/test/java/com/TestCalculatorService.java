@@ -6,8 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.MessageService;
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestCalculatorService{
@@ -17,26 +15,26 @@ public class TestCalculatorService{
 	
 	@Test
 	public void testSum() {
-		Assertions.assertEquals(cal.add(num1,num2),30);
+		Assertions.assertEquals(cal.add(),30);
 	}
 	@Test
 	public void testProduct() {
-		Assertions.assertEquals(cal.multiply(num1,num2),200);
+		Assertions.assertEquals(cal.multiply(),200);
 	}
 	@Test
 	public void testQuotient() {
-		Assertions.assertEquals(cal.divide(num1,num2),2);
+		Assertions.assertEquals(cal.divide(),2);
 	}
 	@Test
 	public void testMean() {
-		Assertions.assertEquals(cal.average(num1,num2),15);
+		Assertions.assertEquals(cal.average(),15);
 	}
 	@Test
 	public void testDiff() {
-		Assertions.assertEquals(cal.subtract(num1,num2),10);
+		Assertions.assertEquals(cal.subtract(),10);
 	}
 	@Test
 	public void testMaxValue() {
-		Assertions.assertEquals(cal.maximum(num1,num2),20);
+		Assertions.assertEquals(cal.maximum(),20);
 	}
 }
