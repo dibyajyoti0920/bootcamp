@@ -1,0 +1,39 @@
+node{
+    
+    stage('git checkout'){
+        git credentialsId: 'git-cred', url: 'https://github.com/dibyajyoti0920/bootcamp.git'
+    }
+    
+    stage('Clean up Stage'){
+        def mavenHome = tool name: 'maven3', type: 'maven'
+        def mavenCMD = "${mavenHome}/bin/mvn"
+        sh "${mavenCMD} clean"
+    }
+    
+    stage('build test and package'){
+        def mavenHome = tool name: 'maven3', type: 'maven'
+        def mavenCMD = "${mavenHome}/bin/mvn"
+        sh "${mavenCMD} package"
+    }
+    
+    stage('build docker image'){
+        
+        sh 'docker build -t dibyajyoti0920/devops-images:v1.0 .'
+    }
+    
+    stage('push docker image'){
+         withCredentials([string(credentialsId: 'docker-cred', variable: 'doc')]){
+         sh "docker login -u dibyajyoti0920 -p ${doc}"
+       }
+         sh 'docker push dibyajyoti0920/devops-images:v1.0'
+    }
+    
+    stage('pull docker image'){
+        sh 'docker pull dibyajyoti0920/devops-images:v1.0'
+    }
+    
+    stage ('run container'){
+        sh 'docker run -p 8888:8887 dibyajyoti0920/devops-images:v1.0'
+    }
+    
+}
